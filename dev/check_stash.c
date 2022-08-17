@@ -25,42 +25,41 @@ int ft_stridx(const char *s, int c)
 
 char *utilize_stash(char **stashPtr)
 {
-    size_t len = ft_strlen(*stashPtr);
+    size_t len;
+    int i;
+    int j;
+    int idx;
+      
     // printf("ADDRESS %p\n",stashPtr);
     // printf("Value @ ADDRESS %s\n",*stashPtr);
     // printf("LEN = %zu\n",len);
-    int idx = ft_stridx(*stashPtr,'\n');
-    int i = 0,j=0;
-      printf("IDX = %d\n",idx);
+    // int idx = ft_stridx(*stashPtr,'\n');
+    
+    //   printf("IDX = %d\n",idx);
+    idx = ft_stridx(*stashPtr,'\n');
     if(idx == -1)
-        return NULL;
+     return NULL;
 //    Other case found '\n' or '\0'
+        i = 0;
+        j = 0;
+        len = ft_strlen(*stashPtr);
         char *line = (char *)malloc(idx+1 * (sizeof(char)));
         char *rest = (char *)malloc(len-idx+1 * (sizeof(char)));
-        char *old;
+      
         while(i < len && i < idx)
-        {
-            // printf("i = %d\n",i);
-            line[j] = (*stashPtr)[i];
-            // printf("CHAR %c\n",(*stashPtr)[i]);
-            i++;
-            j++;
-        }
+            line[j++] = (*stashPtr)[i++];
         line[j] = '\0';
-        // printf("%s\n",line);
         j = 0;
         i++; // skip \n
         while(i < len)
-        {
-            rest[j] = (*stashPtr)[i];
-            i++;
-            j++;
-        }
+            rest[j++] = (*stashPtr)[i++];
         // printf("REST : %s\n",rest);
         rest[j] = '\0';
         free(*stashPtr);
         *stashPtr = rest;
-        return line;
+        return line;   
+
+        
    
 }
 
