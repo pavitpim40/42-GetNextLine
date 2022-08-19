@@ -11,6 +11,22 @@ size_t	ft_strlen(const char *s)
 		i++;
 	return (i);
 }
+int ft_newline_idx(const char *s)
+{
+	int		i;
+
+	i = 0;
+	if(!s)
+		return (-1);
+	while (s[i] != '\n')
+	{
+		if (s[i] == '\0')
+			return (-1);
+		i ++;
+	}
+	return i;
+}
+
 
 int ft_terminate_idx(const char *s, int c)
 {
@@ -19,10 +35,8 @@ int ft_terminate_idx(const char *s, int c)
 	i = 0;
 	if(!s)
 		return (-1);
-	while (s[i] != (char)c)
+	while (s[i] != (char)c && s[i] != '\0')
 	{
-		if (s[i] == '\0')
-			return (-1);
 		i ++;
 	}
 	return i;

@@ -1,7 +1,7 @@
 // #include <stdlib.h>
 
-#include <stdio.h>
-#include <stdlib.h>
+#include <stdio.h> // BUFSIZ
+#include <stdlib.h> // malloc
 #include <unistd.h> // read
 #include <fcntl.h>
 
@@ -9,10 +9,17 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#   define BUFFER_SIZE BUFSIZ
+#   define BUFFER_SIZE 1
 # endif
 
+
+typedef struct Stash{
+  int fd;
+  char *text;
+} Stash;
+
 char    *get_next_line(int fd);
+int     ft_newline_idx(const char *s);
 int     ft_terminate_idx(const char *s, int c);
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlen(const char *s);
