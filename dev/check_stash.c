@@ -23,44 +23,33 @@ int ft_stridx(const char *s, int c)
 	return i;
 }
 
-char *utilize_stash(char **stashPtr)
+char *utilize_stash(char **stashPtr,int idx)
 {
     size_t len;
     int i;
     int j;
-    int idx;
+    char *line;
+    char *rest;
+ 
+    i = 0;
+    j = 0;
+    len = ft_strlen(*stashPtr);
+    *line = (char *)malloc(idx+1 * (sizeof(char)));
+    *rest = (char *)malloc(len-idx+1 * (sizeof(char)));
       
-    // printf("ADDRESS %p\n",stashPtr);
-    // printf("Value @ ADDRESS %s\n",*stashPtr);
-    // printf("LEN = %zu\n",len);
-    // int idx = ft_stridx(*stashPtr,'\n');
+    while(i < len && i < idx)
+        line[j++] = (*stashPtr)[i++];
     
-    //   printf("IDX = %d\n",idx);
-    idx = ft_stridx(*stashPtr,'\n');
-    if(idx == -1)
-     return NULL;
-//    Other case found '\n' or '\0'
-        i = 0;
-        j = 0;
-        len = ft_strlen(*stashPtr);
-        char *line = (char *)malloc(idx+1 * (sizeof(char)));
-        char *rest = (char *)malloc(len-idx+1 * (sizeof(char)));
-      
-        while(i < len && i < idx)
-            line[j++] = (*stashPtr)[i++];
-        line[j] = '\0';
-        j = 0;
-        i++; // skip \n
-        while(i < len)
-            rest[j++] = (*stashPtr)[i++];
-        // printf("REST : %s\n",rest);
-        rest[j] = '\0';
-        free(*stashPtr);
-        *stashPtr = rest;
-        return line;   
-
-        
-   
+    line[j] = '\0';
+    j = 0;
+    i++; // skip \n
+    while(i < len)
+        rest[j++] = (*stashPtr)[i++];
+     
+    rest[j] = '\0';
+    free(*stashPtr);
+    *stashPtr = rest;
+    return line;   
 }
 
 
@@ -82,10 +71,21 @@ int main()
     // printf("%s\n",stash);
     // printf("%c\n",*stash);
     // printf("%p\n",&stash);
-    printf("%s\n", utilize_stash(&stash));
-    printf("%s\n", utilize_stash(&stash));
-     printf("%s\n", utilize_stash(&stash));
-    printf("STASH: %s",stash);
+    int idx;
+
+    idx = ft_stridx(stash,'\n');
+    if(idx != -1)
+    {   
+    printf("%s\n", utilize_stash(&stash,idx));
+    // printf("%s\n", utilize_stash(&stash,idx));
+    // printf("%s\n", utilize_stash(&stash,idx));
+    printf("STASH:%s\n",stash);
     printf("STASH LEN %zu",ft_strlen(stash));
+
+    }
+        
+    
+    
+   
 
 }
