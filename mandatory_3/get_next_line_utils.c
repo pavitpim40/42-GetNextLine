@@ -1,18 +1,5 @@
 #include "get_next_line.h"
 
-// void ft_cleanbuff(const char **buff,int len)
-// {
-// 	int	i;
-	
-// 	i = 0;
-// 	if(!*buff)
-// 		return ;
-// 	while (i < len)
-// 	{
-// 		(*buff)[i] = '\0';
-// 		i++;
-// 	}
-// }
 size_t	ft_strlen(const char *s)
 {
 	int	i;
