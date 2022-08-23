@@ -11,6 +11,7 @@ size_t	ft_strlen(const char *s)
 		i++;
 	return (i);
 }
+
 int ft_newline_idx(const char *s)
 {
 	int		i;
@@ -26,22 +27,6 @@ int ft_newline_idx(const char *s)
 	}
 	return i;
 }
-
-
-int ft_terminate_idx(const char *s, int c)
-{
-	int		i;
-
-	i = 0;
-	if(!s)
-		return (-1);
-	while (s[i] != (char)c && s[i] != '\0')
-	{
-		i++;
-	}
-	return i;
-}
-
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
@@ -76,6 +61,25 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (res);
 }
 
+char	*ft_strdup(const char *s1)
+{
+	int		len;
+	int		i;
+	char	*result;
+
+	i = 0;
+	len = ft_strlen(s1);
+	result = malloc(len + 1);
+	if (result == 0)
+		return (0);
+	while (i < len)
+	{
+		result[i] = s1[i];
+		i++;
+	}
+	result[i] = '\0';
+	return (result);
+}
 
 
 
