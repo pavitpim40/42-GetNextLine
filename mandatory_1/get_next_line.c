@@ -4,8 +4,8 @@
 char *splice_string(char **stringPtr,int idx)
 {
     size_t len;
-    int i;
-    int j;
+    size_t i;
+    size_t j;
     char *front;
     char *back;
 
@@ -16,7 +16,7 @@ char *splice_string(char **stringPtr,int idx)
         return NULL;
     front = (char *)malloc(idx+1 * (sizeof(char)));
     back =  (char *)malloc(len-idx+1 * (sizeof(char)));
-    while(i < len && i < idx)
+    while(i < len && i < (size_t)idx)
         front[j++] = (*stringPtr)[i++];
      front[j] = '\0';
     j = 0;
@@ -28,11 +28,7 @@ char *splice_string(char **stringPtr,int idx)
     *stringPtr = back; 
     return front;   
 }
-// char *validate_and_check_stash(int fd,int buffsize,char **stashPtr)
-// {
-//      if(fd < 0 || BUFFSIZE < 0)
-//         return NULL;
-// }
+
 char *get_next_line(int fd)
 {
     static char *stash;
