@@ -46,3 +46,37 @@ char *ft_strjoin(char  *storage, char  *buffer)
   free(storage);
 	return (res);
 }
+int ft_char_index(const char *s, int c)
+{
+	int	i;
+  int len;
+
+	len = ft_strlen((char *)s);
+  i=0;
+	while (i < len)
+	{
+		if (s[i] == (char)c)
+			return (i);
+		i ++;
+	}
+	return (-1);
+}
+char *ft_strdup(const char *s1)
+{
+	int len;
+	int i;
+	char *result;
+
+	i = 0;
+	len = (int)ft_strlen(s1);
+	result = malloc(len + 1);
+	if (result == 0)
+		return (0);
+	while (i < len)
+	{
+		result[i] = s1[i];
+		i++;
+	}
+	result[i] = '\0';
+	return (result);
+}
