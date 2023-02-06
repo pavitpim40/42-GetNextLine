@@ -53,8 +53,17 @@ char *get_next_line(int fd)
   char *full_line;
   int index;
 
-  if(fd <= 2)
+  if(fd < 0)
     return NULL;
+
+  //  index = ft_char_index(storage,'\n');
+  //   if(index != -1)
+  //   {
+  //     // printf("FOUND NEW LINE");
+  //    full_line =  extract_full_line(storage,index);
+  //    storage = truncate_storage(storage,index);
+  //    return full_line;
+  //   }
   
   buffer = malloc(sizeof(char)*(BUFFER_SIZE+1));
   if(!buffer)
