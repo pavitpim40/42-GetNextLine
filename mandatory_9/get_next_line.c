@@ -54,36 +54,31 @@ char *extract_last_line(char *storage)
   return full_line;
 }
 
-char *truncate_storage(char *storage, int index)
+char *truncate_storage(char *storage)
 {
   int len;
   int i;
+  int index;
   char *new_storage;
 
   len = ft_strlen(storage);
-  if (len - index <= 1)
+  index = ft_char_index(storage,'\n');
+  if (index == -1 || len == index + 1)
   {
     free(storage);
     return (NULL);
   }
   i = 0;
-
   new_storage = malloc(sizeof(char) * (len - index));
-
   if (!new_storage)
     return NULL;
-
   while (storage && i < (len - index - 1))
   {
-
     new_storage[i] = storage[i + index + 1];
     i++;
   }
-
   new_storage[i] = '\0';
-
   free(storage);
-
   return new_storage;
 }
 
@@ -132,7 +127,6 @@ char *get_next_line(int fd)
   buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
   if (!buffer)
     return NULL;
-
   index = -1;
   read_byte = 1;
   while (read_byte > 0 && index == -1)
@@ -147,13 +141,6 @@ char *get_next_line(int fd)
   }
   free(buffer);
   buffer = extract_full_line(storage);
-  if (index == -1)
-  {
-    free(storage);
-    storage = NULL;
-    return buffer;
-  }
-
-  storage = truncate_storage(storage, index);
+  storage = truncate_storage(storage);
   return buffer;
 }

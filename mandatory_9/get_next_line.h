@@ -6,7 +6,7 @@
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:39:45 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/02/07 21:48:06 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/02/08 01:30:50 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@
 char *get_next_line(int fd);
 size_t ft_strlen(const char *s);
 int ft_char_index(const char *s, int c);
-char *truncate_storage(char *storage, int index);
+char *truncate_storage(char *storage);
 char *storage_join(char *storage,char *buffer);
 char *extract_last_line(char *storage);
