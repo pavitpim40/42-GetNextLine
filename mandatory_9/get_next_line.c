@@ -158,6 +158,8 @@ char *storage_join(char *storage, char *buffer)
     j++;
   }
   new_storage[i + j] = '\0';
+  // printf("ADDRESS OF STORAGE IN STR JOIN %p\n",storage);
+  // printf("ADDRESS OF NEW-STORAGE IN STR JOIN %p\n",new_storage);
   if (storage)
     free(storage);
   return new_storage;
@@ -174,6 +176,9 @@ char *get_next_line(int fd)
   // char *temp;
   // char *full_line;
   int index;
+  // printf("================================================\n");
+  // printf("STORAGE AT FIRST IS %s", storage);
+  //  printf("================================================\n");
 
   // ###############################
   // ############## INVALID FD & BUFFER SIZE
@@ -193,34 +198,52 @@ char *get_next_line(int fd)
   // ###############################
   // printf("GG");
   read_byte = (int)read(fd, buffer, BUFFER_SIZE);
-
+   printf("READ BYTE %d\n",read_byte);
   if (read_byte == -1)
   {
     free(buffer);
     return NULL;
   }
+  // printf("GG2");
   // printf("READ BYTE %d\n",read_byte);
-  // printf("STORAGE %s\n",storage);
+  // printf("ADDRESS OF STORAGE %p\n",storage);
+  // printf("ADDRESS OF BUFFER %p\n",buffer);
+
+
+
+
+  // ###############################
+  //  NOTHING TO READ :: NO STORAGE
+  // ###############################
   if(read_byte == 0 && !storage)
   {
+    printf("NOTHING TO READ && NO STORAGE\n");
+    // printf("STR LENGTH IS %zu\n", ft_strlen(storage));
+    // printf("SIZE OF POINTER IS %zu\n", sizeof(&storage));
+    // printf("ADDRESS OF STORAGE  IS %p\n", storage);
     free(buffer);
-    if(storage) {
-      buffer  = storage;
-      free(storage);
-      return buffer;
-    }
+    // printf("ADDRESS OF STORAGE IS %p\n", storage);
+    // free(storage);
     return NULL;
   }
-  // printf("AA");
+
+  index = ft_char_index(storage, '\n');
+  // printf("GNL : INDEX %d\n", index);
+
+  // ###############################
+  // ############### NOTHING TO READ
+  // ###############################
   if (read_byte == 0 && storage)
   {
-      // printf("BB");
-    index = ft_char_index(storage, '\n');
+    //  printf("NOTHING TO READ WITH STORAGE\n");
+ 
     if (index == -1)
     {
       free(buffer);
-        // printf("CC");
+      // printf("THERE IS SOMETHING IN STORAGE BUT NO NEW LINE\n");
+      // printf("STORAGE IS %s", storage);
       buffer = extract_last_line(storage);
+      // printf("LAST BUFF %s\n",buffer);
         // printf("DD");
       // printf("address of buffer %p\n",buffer);
       // printf("address of storage %p\n",storage);
@@ -232,13 +255,20 @@ char *get_next_line(int fd)
 
     free(buffer);
     buffer = extract_full_line(storage, index);
-
+    // printf("ADDRESS OF STORAGE A  : %p\n",storage);
+    
     storage = truncate_storage(storage, index);
+    // printf("ADDRESS OF STORAGE B  : %p\n",storage);
+    // free(storage);
     return buffer;
 
   
 
   }
+ 
+ 
+ 
+ 
     // printf("EE");
   // temp = NULL;
   // ###############################
@@ -300,7 +330,7 @@ char *get_next_line(int fd)
   }
 
   // ###############################
-  // ############## BEFORE EXIT WITH LAST LINE
+  // #### BEFORE EXIT WITH LAST LINE
   // ###############################
 
   // printf("GNL :: INDEX %d\n", index);
@@ -321,7 +351,7 @@ char *get_next_line(int fd)
   }
 
   // ###############################
-  // ############## BEFORE EXIT WITH FULL LINE
+  // ### BEFORE EXIT WITH FULL LINE
   // ###############################
 
   free(buffer);
