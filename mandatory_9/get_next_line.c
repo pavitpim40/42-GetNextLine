@@ -1,31 +1,31 @@
 #include "get_next_line.h"
 
-
-char *extract_full_line(char *storage, int index)
+char *extract_full_line(char *storage)
 {
-
-  int i;
   char *full_line;
+  int index;
+  int len;
 
-  i = 0;
+  if (!storage)
+    return NULL;
+  len = 0;
+  while (storage[len] && storage[len] != '\n')
+    len++;
+  full_line = malloc(sizeof(char) * len + 1);
 
-  full_line = malloc(sizeof(char) * index + 1 + 1);
   if (!full_line)
     return NULL;
-
-  while (i < index)
+  index = 0;
+  while (index < len)
   {
-    full_line[i] = storage[i];
-    i++;
+    full_line[index] = storage[index];
+    index++;
   }
-  if (storage[i] == '\n')
-    full_line[i] = '\n';
-  i++;
-
-  full_line[i] = '\0';
+  if (storage[index] == '\n')
+  full_line[index++] = '\n';
+  full_line[index] = '\0';
   return full_line;
 }
-
 
 char *extract_last_line(char *storage)
 {
@@ -35,10 +35,9 @@ char *extract_last_line(char *storage)
 
   len = ft_strlen(storage);
   i = 0;
- 
+
   if (len == 0)
     return NULL;
-  
 
   full_line = malloc(sizeof(char) * (len + 1));
 
@@ -87,7 +86,6 @@ char *truncate_storage(char *storage, int index)
 
   return new_storage;
 }
-
 
 char *storage_join(char *storage, char *buffer)
 {
@@ -139,8 +137,8 @@ char *get_next_line(int fd)
   read_byte = 1;
   while (read_byte > 0 && index == -1)
   {
-    read_byte = (int)read(fd, buffer, BUFFER_SIZE); 
-    if(read_byte!=0 && read_byte != -1)
+    read_byte = (int)read(fd, buffer, BUFFER_SIZE);
+    if (read_byte != 0 && read_byte != -1)
     {
       buffer[read_byte] = '\0';
       storage = storage_join(storage, buffer);
@@ -148,14 +146,14 @@ char *get_next_line(int fd)
     index = ft_char_index(storage, '\n');
   }
   free(buffer);
+  buffer = extract_full_line(storage);
   if (index == -1)
   {
-    buffer = extract_last_line(storage);
     free(storage);
     storage = NULL;
     return buffer;
   }
-  buffer = extract_full_line(storage, index);
+
   storage = truncate_storage(storage, index);
   return buffer;
 }
