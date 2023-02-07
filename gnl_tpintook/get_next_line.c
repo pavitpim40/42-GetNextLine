@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tpintook <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 13:40:33 by tpintook          #+#    #+#             */
-/*   Updated: 2023/02/01 18:05:25 by tpintook         ###   ########.fr       */
+/*   Updated: 2023/02/07 11:30:13 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,32 +74,32 @@ char	*ft_cut_line(char	*s)
 
 char	*get_next_line(int fd)
 {
-	char		*temp;
+	char		*buffer;
 	int			fd_read;
 	static char	*present_str;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	fd_read = 1;
-	temp = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
-	if (!temp)
+	buffer = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
+	if (!buffer)
 		return (NULL);
 	while (fd_read > 0 && !(ft_strchr(present_str, '\n')))
 	{
-		fd_read = read(fd, temp, BUFFER_SIZE);
+		fd_read = read(fd, buffer, BUFFER_SIZE);
 		if (fd_read == -1)
 		{
-			free(temp);
-			// printf("TEMP %s",temp);
+			free(buffer);
+			// printf("buffer %s",buffer);
 			return (NULL);
 		}
-		temp[fd_read] = '\0';
-		present_str = ft_strjoin(present_str, temp);
+		buffer[fd_read] = '\0';
+		present_str = ft_strjoin(present_str, buffer);
 	}
-	free(temp);
-	temp = ft_read_line(present_str);
-	present_str = ft_cut_line(present_str);
-	return (temp);
+	free(buffer);
+	buffer = ft_read_line(present_str); // extract line 
+	present_str = ft_cut_line(present_str); // truncate storage
+	return (buffer);
 }
 
 // int main()
