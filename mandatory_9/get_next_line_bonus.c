@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/08 02:20:53 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/02/08 02:20:53 by ppimchan         ###   ########.fr       */
+/*   Created: 2023/02/08 02:20:20 by ppimchan          #+#    #+#             */
+/*   Updated: 2023/02/08 02:20:21 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char *extract_full_line(char *storage)
 {
@@ -105,7 +105,7 @@ char *get_next_line(int fd)
 {
   char *buffer;
   int read_byte;
-  char static *storage;
+  char static *storage[OPEN_MAX];
   // int index;
 
   if (fd < 0 || BUFFER_SIZE <= 0)
@@ -115,18 +115,18 @@ char *get_next_line(int fd)
     return NULL;
   // index = -1;
   read_byte = 1;
-  while (read_byte > 0 && ft_char_index(storage, '\n') == -1)
+  while (read_byte > 0 && ft_char_index(storage[fd], '\n') == -1)
   {
     read_byte = (int)read(fd, buffer, BUFFER_SIZE);
     if (read_byte != 0 && read_byte != -1)
     {
       buffer[read_byte] = '\0';
-      storage = storage_join(storage, buffer);
+      storage[fd] = storage_join(storage[fd], buffer);
     }
     // index = ft_char_index(storage, '\n');
   }
   free(buffer);
-  buffer = extract_full_line(storage);
-  storage = truncate_storage(storage);
+  buffer = extract_full_line(storage[fd]);
+  storage[fd] = truncate_storage(storage[fd]);
   return buffer;
 }

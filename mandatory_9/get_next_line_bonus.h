@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:39:45 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/02/08 02:22:40 by ppimchan         ###   ########.fr       */
+/*   Updated: 2023/02/08 02:22:26 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
+
 #include <unistd.h> // read
 #include <stdlib.h> // malloc
+# include <limits.h>
+
 
 # ifndef BUFFER_SIZE
 #   define BUFFER_SIZE 10000

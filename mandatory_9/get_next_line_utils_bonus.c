@@ -1,30 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ppimchan <ppimchan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/06 14:39:45 by ppimchan          #+#    #+#             */
-/*   Updated: 2023/02/08 02:22:40 by ppimchan         ###   ########.fr       */
+/*   Created: 2023/02/08 02:20:35 by ppimchan          #+#    #+#             */
+/*   Updated: 2023/02/08 02:20:41 by ppimchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "get_next_line_bonus.h"
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+size_t ft_strlen(const char *s)
+{
+	int i;
 
-#include <unistd.h> // read
-#include <stdlib.h> // malloc
+	i = 0;
+	if (!s)
+		return (0);
+	while (s[i] != '\0')
+		i++;
+	return (i);
+}
 
-# ifndef BUFFER_SIZE
-#   define BUFFER_SIZE 10000
-# endif
 
-char *get_next_line(int fd);
-size_t ft_strlen(const char *s);
-int ft_char_index(const char *s, int c);
-char *truncate_storage(char *storage);
-char *storage_join(char *storage,char *buffer);
+int ft_char_index(const char *s, int c)
+{
+	int	i;
+  int len;
 
-# endif
+	len = ft_strlen((char *)s);
+  i=0;
+	while (i < len)
+	{
+		if (s[i] == (char)c)
+			return (i);
+		i ++;
+	}
+	return (-1);
+}
+

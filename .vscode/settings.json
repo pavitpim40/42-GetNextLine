@@ -1,5 +1,6 @@
 {
-    "files.associations": {
-        "GNL_SPARE.C": "cpp"
-    }
+  "files.associations": {
+    "GNL_SPARE.C": "cpp",
+    "fcntl.h": "c"
+  }
 }
