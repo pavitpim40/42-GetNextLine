@@ -1,4 +1,4 @@
-TIMEOUT_US				= 1000000
+TIMEOUT_US				= 400000
 
 .DEFAULT_GOAL			= a
 UTILS					= utils/sigsegv.cpp utils/color.cpp utils/check.cpp utils/gnl.cpp utils/leaks.cpp
@@ -36,7 +36,7 @@ UNAME = $(shell uname -s)
 ifeq ($(UNAME), Linux)
     VALGRIND = valgrind -q --leak-check=full
 endif
-
+# VALGRIND = valgrind -q --leak-check=full
 $(1MANDATORY): 1%:
 	@gcc -D BUFFER_SIZE=1 $(CFLAGS) -c $(MANDATORY_FILES)
 	@clang++ -D BUFFER_SIZE=1 -gdwarf-4 -D TIMEOUT_US=$(TIMEOUT_US) $(CPPFLAGS) $(UTILS) $(TESTS_PATH)$*.cpp $(MANDATORY_OBJS) -o gnlTest && $(VALGRIND) ./gnlTest < files/alternate_line_nl_with_nl && rm -f gnlTest
